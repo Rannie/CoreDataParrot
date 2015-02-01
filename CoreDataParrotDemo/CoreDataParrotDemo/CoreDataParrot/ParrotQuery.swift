@@ -33,16 +33,16 @@ enum PQFunction: String {
   case PQAverage = "average:"
 }
 
-class ParrotQuery: NSObject {
-  var entity: String?
+class ParrotQuery: NSObject, NSCopying {
+  var entity: String
   
   var compound: Bool
   var limitCount: UInt
   var batchSize: UInt
   var queryOffset: UInt
   
-  var queryPerdicate: NSPredicate?
-  var sortDescriptors: Array<NSSortDescriptor>?
+  var queryPredicate: NSPredicate?
+  var sortDescriptors: Array<NSSortDescriptor>
   var expressionDescription: NSExpressionDescription?
   
   init(entity: String) {
@@ -51,14 +51,27 @@ class ParrotQuery: NSObject {
     self.batchSize = 0
     self.queryOffset = 0
     self.entity = entity
+    self.sortDescriptors = []
   }
 
   class func query(entity: String) -> ParrotQuery {
     return ParrotQuery(entity: entity)
   }
+  
+  func copyWithZone(zone: NSZone) -> AnyObject {
+    var query = ParrotQuery.allocWithZone(zone)
+    query.entity = self.entity
+    query.queryPredicate = self.queryPredicate
+    query.expressionDescription = self.expressionDescription;
+    query.sortDescriptors = self.sortDescriptors;
+    query.limitCount = self.limitCount;
+    query.batchSize = self.batchSize;
+    query.queryOffset = self.queryOffset;
+    return query
+  }
 
   func same() -> ParrotQuery {
-    return ParrotQuery(entity: self.entity!)
+    return ParrotQuery(entity: self.entity)
   }
 
   func query(key: String, op: PQOperator, value: AnyObject) {
@@ -69,7 +82,7 @@ class ParrotQuery: NSObject {
     
     var operatorStr = op.rawValue
     var predicate = NSPredicate(format: "%@ %@ \"%@\"", argumentArray: [key, operatorStr, value])
-    self.queryPerdicate = predicate
+    self.queryPredicate = predicate
   }
   
   func query(key: String, function: PQFunction) {
@@ -84,16 +97,44 @@ class ParrotQuery: NSObject {
     self.expressionDescription = expDescription
   }
   
+  func or(query: ParrotQuery) -> ParrotQuery? {
+    if (self.queryPredicate == nil || query.queryPredicate == nil) {
+      println("ParrotQuery: Warning! Compound queries must have predicate!")
+      return nil
+    }
+    var newQuery = self.copy() as ParrotQuery
+    newQuery.queryPredicate = NSCompoundPredicate.orPredicateWithSubpredicates([query.queryPredicate!, self.queryPredicate!])
+    newQuery.compound = true
+    return newQuery;
+  }
   
+  func and(query: ParrotQuery) -> ParrotQuery? {
+    if (self.queryPredicate == nil || query.queryPredicate == nil) {
+      println("ParrotQuery: Warning! Compound queries must have predicate!")
+      return nil
+    }
+    var newQuery = self.copy() as ParrotQuery
+    newQuery.queryPredicate = NSCompoundPredicate.andPredicateWithSubpredicates([query.queryPredicate!, self.queryPredicate!])
+    newQuery.compound = true
+    return newQuery
+  }
   
+  func not() {
+    if (self.queryPredicate == nil) {
+      println("ParrotQuery: Warning! Compound query must have predicate!")
+      return
+    }
+    self.queryPredicate = NSCompoundPredicate.notPredicateWithSubpredicate(self.queryPredicate!)
+    self.compound = true
+  }
   
+  func sort(key: String, ascending: Bool) {
+    var sortDescriptor = NSSortDescriptor(key: key, ascending: ascending)
+    self.sortDescriptors.append(sortDescriptor)
+  }
   
-  
-  
-  
-  
-  
-  
-  
-  
+  func sort(key: String, ascending: Bool, comparator: NSComparator) {
+    var sortDescriptor = NSSortDescriptor(key: key, ascending: ascending, comparator: comparator)
+    self.sortDescriptors.append(sortDescriptor)
+  }
 }
