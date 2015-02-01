@@ -73,7 +73,9 @@
 				4D037CD61A7B299C0019215D /* CoreDataParrotDemoTests */,
 				4D037CBF1A7B299C0019215D /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		4D037CBF1A7B299C0019215D /* Products */ = {
 			isa = PBXGroup;
@@ -433,6 +435,7 @@
 				4D037CDF1A7B299C0019215D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4D037CE01A7B299C0019215D /* Build configuration list for PBXNativeTarget "CoreDataParrotDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -441,6 +444,7 @@
 				4D037CE21A7B299C0019215D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
