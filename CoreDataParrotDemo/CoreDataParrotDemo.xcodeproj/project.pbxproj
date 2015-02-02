@@ -15,7 +15,7 @@
 		4D037CDA1A7B299C0019215D /* CoreDataParrotDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D037CD91A7B299C0019215D /* CoreDataParrotDemoTests.swift */; };
 		4D037CE51A7B29D10019215D /* ParrotQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D037CE41A7B29D10019215D /* ParrotQuery.swift */; };
 		4D037CE71A7B29E20019215D /* ParrotDataAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D037CE61A7B29E20019215D /* ParrotDataAgent.swift */; };
-		4D037CE91A7B29ED0019215D /* ParrotDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D037CE81A7B29ED0019215D /* ParrotDataManager.swift */; };
+		4D037CE91A7B29ED0019215D /* ParrotDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D037CE81A7B29ED0019215D /* ParrotDataStack.swift */; };
 		4D037CEB1A7B29FD0019215D /* ParrotDataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D037CEA1A7B29FD0019215D /* ParrotDataImporter.swift */; };
 		4D037CED1A7B2A4C0019215D /* ParrotResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D037CEC1A7B2A4C0019215D /* ParrotResultController.swift */; };
 /* End PBXBuildFile section */
@@ -43,7 +43,7 @@
 		4D037CD91A7B299C0019215D /* CoreDataParrotDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataParrotDemoTests.swift; sourceTree = "<group>"; };
 		4D037CE41A7B29D10019215D /* ParrotQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParrotQuery.swift; sourceTree = "<group>"; };
 		4D037CE61A7B29E20019215D /* ParrotDataAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParrotDataAgent.swift; sourceTree = "<group>"; };
-		4D037CE81A7B29ED0019215D /* ParrotDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParrotDataManager.swift; sourceTree = "<group>"; };
+		4D037CE81A7B29ED0019215D /* ParrotDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParrotDataStack.swift; sourceTree = "<group>"; };
 		4D037CEA1A7B29FD0019215D /* ParrotDataImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParrotDataImporter.swift; sourceTree = "<group>"; };
 		4D037CEC1A7B2A4C0019215D /* ParrotResultController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParrotResultController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,7 +130,7 @@
 			children = (
 				4D037CE41A7B29D10019215D /* ParrotQuery.swift */,
 				4D037CE61A7B29E20019215D /* ParrotDataAgent.swift */,
-				4D037CE81A7B29ED0019215D /* ParrotDataManager.swift */,
+				4D037CE81A7B29ED0019215D /* ParrotDataStack.swift */,
 				4D037CEA1A7B29FD0019215D /* ParrotDataImporter.swift */,
 				4D037CEC1A7B2A4C0019215D /* ParrotResultController.swift */,
 			);
@@ -238,7 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D037CC61A7B299C0019215D /* ViewController.swift in Sources */,
-				4D037CE91A7B29ED0019215D /* ParrotDataManager.swift in Sources */,
+				4D037CE91A7B29ED0019215D /* ParrotDataStack.swift in Sources */,
 				4D037CE71A7B29E20019215D /* ParrotDataAgent.swift in Sources */,
 				4D037CC41A7B299C0019215D /* AppDelegate.swift in Sources */,
 				4D037CED1A7B2A4C0019215D /* ParrotResultController.swift in Sources */,

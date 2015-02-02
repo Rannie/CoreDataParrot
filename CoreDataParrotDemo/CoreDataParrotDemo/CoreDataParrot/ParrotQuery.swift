@@ -37,9 +37,9 @@ class ParrotQuery: NSObject, NSCopying {
   var entity: String
   
   var compound: Bool
-  var limitCount: UInt
-  var batchSize: UInt
-  var queryOffset: UInt
+  var limitCount: Int
+  var batchSize: Int
+  var queryOffset: Int
   
   var queryPredicate: NSPredicate?
   var sortDescriptors: Array<NSSortDescriptor>
@@ -73,8 +73,12 @@ class ParrotQuery: NSObject, NSCopying {
   func same() -> ParrotQuery {
     return ParrotQuery(entity: self.entity)
   }
+  
+  func excute() -> AnyObject? {
+    return ParrotDataAgent.sharedAgent.excute(query: self)
+  }
 
-  func query(key: String, op: PQOperator, value: AnyObject) {
+  func query(key: String, op: PQOperator, _ value: AnyObject) {
     if (self.compound == true) {
       println("ParrotQuery: Query is compound. If want to add a condition, can use 'AND:' method!")
       return
