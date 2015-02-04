@@ -41,6 +41,12 @@ public class ParrotDataAgent: NSObject {
     }
   }
   
+  func backCommit() {
+    self.databaseStack.saveContext(self.backContext, success: { () -> Void in}) { (error) -> Void in
+      println("ParrotAgent: Background save failed, error: \(error)")
+    }
+  }
+  
   func deleteObject(object: NSManagedObject) {
     self.deleteObjects([object], success: { () -> Void in
       println("ParrotAgent: Delete \(object) success!")
@@ -82,6 +88,32 @@ public class ParrotDataAgent: NSObject {
     return ret
   }
   
+  func excute(controller: ParrotResultController) {
+    var error: NSError? = nil
+    if controller.performFetch(&error) == false {
+      println("ParrotAgent: ParrotResultController fetch failed, error: \(error)")
+    }
+  }
+  
+  func buildRequest(query: ParrotQuery) -> NSFetchRequest {
+    var request = NSFetchRequest(entityName: query.entity)
+    var entityDescription = NSEntityDescription.entityForName(query.entity, inManagedObjectContext: self.mainContext)
+    
+    request.entity = entityDescription
+    request.sortDescriptors = query.sortDescriptors
+    request.fetchBatchSize = query.batchSize
+    request.fetchOffset = query.queryOffset
+    request.fetchLimit = query.limitCount
+    request.predicate = query.queryPredicate
+    
+    if query.expressionDescription != nil {
+      request.propertiesToFetch = [query.expressionDescription!]
+      request.resultType = .DictionaryResultType
+    }
+    
+    return request
+  }
+  
   func cacheQuery(query: ParrotQuery, key: String) {
     self.queryCache[key] = query
   }
@@ -113,25 +145,6 @@ public class ParrotDataAgent: NSObject {
   func reduceMemory() {
     self.queryCache.removeAll(keepCapacity: false)
     self.mainContext.undoManager!.removeAllActions()
-  }
-  
-  private func buildRequest(query: ParrotQuery) -> NSFetchRequest {
-    var request = NSFetchRequest(entityName: query.entity)
-    var entityDescription = NSEntityDescription.entityForName(query.entity, inManagedObjectContext: self.mainContext)
-    
-    request.entity = entityDescription
-    request.sortDescriptors = query.sortDescriptors
-    request.fetchBatchSize = query.batchSize
-    request.fetchOffset = query.queryOffset
-    request.fetchLimit = query.limitCount
-    request.predicate = query.queryPredicate
-    
-    if query.expressionDescription != nil {
-      request.propertiesToFetch = [query.expressionDescription!]
-      request.resultType = .DictionaryResultType
-    }
-    
-    return request
   }
   
   private func query(#request: NSFetchRequest, success: (result: AnyObject?) -> Void, failure: (error: NSError) -> Void) {
