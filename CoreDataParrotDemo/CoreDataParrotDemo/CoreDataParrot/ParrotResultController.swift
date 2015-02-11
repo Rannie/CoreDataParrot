@@ -22,6 +22,6 @@ class ParrotResultController: NSFetchedResultsController {
   }
   
   func performQuery() {
-    ParrotDataAgent.sharedAgent.excute(self)
+    ParrotDataAgent.sharedAgent.execute(self)
   }
 }
