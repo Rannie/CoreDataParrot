@@ -85,7 +85,7 @@ class ParrotQuery: NSObject, NSCopying {
     }
     
     var operatorStr = op.rawValue
-    var predicate = NSPredicate(format: "%@ %@ \"%@\"", argumentArray: [key, operatorStr, value])
+    var predicate = NSPredicate(format: "\(key) \(operatorStr) '\(value)'")
     self.queryPredicate = predicate
   }
   

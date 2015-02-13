@@ -74,8 +74,8 @@ class ParrotQuery: NSObject, NSCopying {
     return ParrotQuery(entity: self.entity)
   }
   
-  func excute() -> AnyObject? {
-    return ParrotDataAgent.sharedAgent.excute(query: self)
+  func execute() -> AnyObject? {
+    return ParrotDataAgent.sharedAgent.execute(query: self)
   }
 
   func query(key: String, op: PQOperator, _ value: AnyObject) {
@@ -85,7 +85,7 @@ class ParrotQuery: NSObject, NSCopying {
     }
     
     var operatorStr = op.rawValue
-    var predicate = NSPredicate(format: "%@ %@ \"%@\"", argumentArray: [key, operatorStr, value])
+    var predicate = NSPredicate(format: "\(key) \(operatorStr) '\(value)'")
     self.queryPredicate = predicate
   }
   

@@ -63,7 +63,7 @@ public class ParrotDataAgent: NSObject {
     }
   }
   
-  func excute(#query: ParrotQuery) -> AnyObject? {
+  func execute(#query: ParrotQuery) -> AnyObject? {
     self.cacheQuery(query, key: ParrotQueryTempKey)
     
     var request = self.buildRequest(query)
@@ -82,13 +82,13 @@ public class ParrotDataAgent: NSObject {
       }
       removeClosure()
     }) { (error) -> Void in
-      println("ParrotAgent: Query(\(query)) excute failed, error: \(error)")
+      println("ParrotAgent: Query(\(query)) execute failed, error: \(error)")
       removeClosure()
     }
     return ret
   }
   
-  func excute(controller: ParrotResultController) {
+  func execute(controller: ParrotResultController) {
     var error: NSError? = nil
     if controller.performFetch(&error) == false {
       println("ParrotAgent: ParrotResultController fetch failed, error: \(error)")

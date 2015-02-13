@@ -26,7 +26,7 @@ class ParrotDataImporter: NSObject {
           if var primaryValue: AnyObject? = object.valueForKey(primaryKey!) {
             var query = ParrotQuery(entity: entity)
             query.query(primaryKey!, op: .PQEqual, primaryValue!)
-            var result: AnyObject? = query.excute()
+            var result: AnyObject? = query.execute()
             managedObj = result?.firstObject as? NSManagedObject
           } else {
             println("ParrotDataImporter: data object should have primary value!")

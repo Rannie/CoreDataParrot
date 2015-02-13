@@ -9,8 +9,7 @@
 import Foundation
 import CoreData
 
-//http://stackoverflow.com/questions/26613971/swift-coredata-warning-unable-to-load-class-named
-@objc(Person)
+@objc(Person) //http://stackoverflow.com/questions/26613971/swift-coredata-warning-unable-to-load-class-named
 class Person: NSManagedObject {
 
     @NSManaged var name: String

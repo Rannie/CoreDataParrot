@@ -19,7 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     println(path)
     
     self.setupDatabase()
-    self.generateDataAndCommit()
+//    self.generateDataAndCommit()
+//    self.operatorQuery()
+//    self.functionQuery()
+//    self.sortQuery()
+    self.compoundQuery()
     return true
   }
   
@@ -43,6 +47,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     p2.marriage = 1
     
     self.dataAgent!.commit()
+  }
+  
+  func operatorQuery() {
+    var query = ParrotQuery(entity: "Person")
+    query.query("name", op: PQOperator.PQEqual, "Kobe")
+    var result: AnyObject? = query.execute()
+    println(result)
+  }
+  
+  func functionQuery() {
+    var query = ParrotQuery(entity: "Person")
+    query.query("age", function: .PQAverage)
+    var result: AnyObject? = query.execute()
+    println(result)
+  }
+  
+  func sortQuery() {
+    var query = ParrotQuery(entity: "Person")
+    query.sort("age", ascending: true)
+    var result: AnyObject? = query.execute()
+    println(result)
+  }
+  
+  func compoundQuery() {
+    var queryAge = ParrotQuery(entity: "Person")
+    queryAge.query("age", op: .PQGreaterOrEqual, 20)
+    
+    var queryName = ParrotQuery(entity: "Person")
+    queryName.query("name", op: .PQEqual, "Kobe")
+    
+    var query = queryAge.and(queryName)
+    var result: AnyObject? = query?.execute()
+    println(result)
   }
 }
 
